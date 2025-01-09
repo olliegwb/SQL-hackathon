@@ -8,39 +8,24 @@ async function resetDatabase() {
       DROP TABLE IF EXISTS personas CASCADE;
     `);
 
+    // Create the personas table
+    await pool.query(`
+        CREATE TABLE personas (
+          persona VARCHAR(255) NOT NULL PRIMARY KEY,
+          strengths VARCHAR(255) ARRAY,
+          weaknesses VARCHAR(255) ARRAY
+        );
+      `);
+
     // Create the characters table with a foreign key to the personas table
     await pool.query(`
       CREATE TABLE characters (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         character_name VARCHAR(255) NOT NULL,
         pseudoname VARCHAR(255) NOT NULL,
-        main_persona VARCHAR(255) NOT NULL
+        main_persona VARCHAR(255) NOT NULL,
+        FOREIGN KEY (main_persona) REFERENCES personas(persona)
       );
-    `);
-
-    // Create the personas table
-    await pool.query(`
-        CREATE TABLE personas (
-          id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-          persona VARCHAR(255) NOT NULL,
-          strengths VARCHAR(255) ARRAY,
-          weaknesses VARCHAR(255) ARRAY
-        );
-      `);
-
-    // Seed the characters table
-    await pool.query(`
-      INSERT INTO characters (character_name, pseudoname, main_persona)
-      VALUES 
-        ('Ren Amamiya', 'Joker', 'Arsene'),
-        ('Morgana', 'Mona', 'Zorro'),
-        ('Ryuji Sakamoto', 'Skull', 'Captain Kid'),
-        ('Ann Takamaki', 'Panther', 'Carmen'),
-        ('Yusuke Kitagawa', 'Fox', 'Goemon'),
-        ('Makoto Nijima', 'Queen', 'Johanna'),
-        ('Futaba Sakura', 'Oracle', 'Necronomicon'),
-        ('Haru Okumura', 'Noir', 'Milady'),
-        ('Goro Akechi', 'Crow', 'Robin Hood');
     `);
 
     // Seed the personas table
@@ -62,6 +47,22 @@ async function resetDatabase() {
           ('Trumpeter', '{"Electricity", "Bless", "Ice", "Curse"}', '{null}'),
           ('Angel', '{"Bless", "Electricity"}', '{"Gun", "Curse"}');
       `);
+
+    // Seed the characters table
+    await pool.query(`
+      INSERT INTO characters (character_name, pseudoname, main_persona)
+      VALUES 
+        ('Ren Amamiya', 'Joker', 'Arsene'),
+        ('Morgana', 'Mona', 'Zorro'),
+        ('Ryuji Sakamoto', 'Skull', 'Captain Kid'),
+        ('Ann Takamaki', 'Panther', 'Carmen'),
+        ('Yusuke Kitagawa', 'Fox', 'Goemon'),
+        ('Makoto Nijima', 'Queen', 'Johanna'),
+        ('Futaba Sakura', 'Oracle', 'Necronomicon'),
+        ('Haru Okumura', 'Noir', 'Milady'),
+        ('Goro Akechi', 'Crow', 'Robin Hood');
+    `);
+
 
     console.log("Database reset successful");
   } catch (error) {
