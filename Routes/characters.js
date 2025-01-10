@@ -1,7 +1,7 @@
 import express from "express";
 import {
   getCharacters,
-  //getAuthorById,
+  getCharacterById,
   //createAuthor,
  // updateAuthorById,
   //deleteAuthorById,
@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 
 router.get("/", getCharacters);
-//router.get("/:id", getAuthorById);
+router.get("/:id", getCharacterById);
 //router.post("/", createAuthor);
 //router.patch("/:id", updateAuthorById);
 //router.delete("/:id", deleteAuthorById);
