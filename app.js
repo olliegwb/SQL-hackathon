@@ -2,7 +2,7 @@
 import express from "express";
 import morgan from "morgan";
 
-// import charactersRouter from "./routes/characters.js";
+import charactersRouter from "./routes/characters.js";
 // import personasRouter from "./routes/personas.js";
 
 // Initialize the express app
@@ -13,7 +13,7 @@ app.use(morgan("dev")); // Morgan is used for logging HTTP requests to the conso
 app.use(express.json()); // express.json() middleware is used to parse incoming JSON requests
 
 // Use sub-routers
-// app.use("/characters", charactersRouter);
+ app.use("/characters", charactersRouter);
 // app.use("/personas", personasRouter);
 
 export default app;
