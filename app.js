@@ -3,7 +3,7 @@ import express from "express";
 import morgan from "morgan";
 
 import charactersRouter from "./routes/characters.js";
-// import personasRouter from "./routes/personas.js";
+import personasRouter from "./routes/personas.js";
 
 // Initialize the express app
 const app = express();
@@ -14,6 +14,6 @@ app.use(express.json()); // express.json() middleware is used to parse incoming 
 
 // Use sub-routers
  app.use("/characters", charactersRouter);
-// app.use("/personas", personasRouter);
+app.use("/personas", personasRouter);
 
 export default app;

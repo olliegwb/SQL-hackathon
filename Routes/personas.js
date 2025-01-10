@@ -1,4 +1,4 @@
-/*import express from "express";
+import express from "express";
 import {
   getPersonas,
   //createBook,
@@ -14,4 +14,4 @@ router.get("/", getPersonas);
 //router.patch("/:id", updateBookById);
 //router.delete("/:id", deleteBookById);
 
-export default router;*/
+export default router;
